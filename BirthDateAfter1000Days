@@ -1,0 +1,7 @@
+import datetime as dt
+data_string = str(input())
+data_object = dt.datetime.strptime(data_string, '%d %m %Y')
+addedTime=dt.timedelta(days=1000)
+t3=data_object+addedTime
+data_final = t3.strftime('%d-%m-%Y')
+print(data_final)
