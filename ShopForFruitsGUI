@@ -1,0 +1,61 @@
+import PySimpleGUI as sg
+
+fruits = ('banana', 'apple', 'orange', 'grapefruit',
+          'kiwi', 'pineapple', 'grapes')
+day = ('Monday', 'Tuesday', 'Wednesday',
+       'Thursday', 'Friday', 'Saturday', 'Sunday')
+
+sg.theme('SandyBeach')
+
+layout = [
+    [sg.Text('Quantity:'), sg.InputText(key='quantity', size=(20, 1)), sg.Text('Fruit'),
+     sg.Combo(fruits, default_value='banana', readonly=True, key='fruitInput')],
+    [sg.Text('Price: '), sg.Text('0', key='outPrice', size=(20, 1)), sg.Text('Day'),
+     sg.Combo(day, default_value='Monday', readonly=True, key='dayInput'),
+     sg.Submit("Calculate")],
+     [
+         sg.Submit('Done')
+     ]
+]
+
+window = sg.Window('Shop for fruits', layout)
+
+while True:
+    event, values = window.read()
+    if event == sg.WIN_CLOSED or event=="Done":
+        break
+    elif event == "Calculate":
+        price = 0
+        if values['dayInput'] == 'Monday' or values['dayInput'] == 'Tuesday' or values['dayInput'] == 'Wednesday' or values['dayInput'] == 'Thursday' or values['dayInput'] == 'Friday':
+            if values['fruitInput'] == "banana":
+                price = 2.50
+            elif values['fruitInput'] == "apple":
+                price = 1.20
+            elif values['fruitInput'] == "orange":
+                price = 0.85
+            elif values['fruitInput'] == "grapefruit":
+                price = 1.45
+            elif values['fruitInput'] == "kiwi":
+                price = 2.70
+            elif values['fruitInput'] == "pineapple":
+                price = 5.50
+            elif values['fruitInput'] == "grapes":
+                price = 3.85
+        elif values['dayInput'] == "Satueday" or values['dayInput'] == 'Sunday':
+            if values['fruitInput'] == "banana":
+                price = 2.70
+            elif values['fruitInput'] == "apple":
+                price = 1.25
+            elif values['fruitInput'] == "orange":
+                price = 0.90
+            elif values['fruitInput'] == "grapefruit":
+                price = 1.60
+            elif values['fruitInput'] == "kiwi":
+                price = 3.00
+            elif values['fruitInput'] == "pineapple":
+                price = 5.60
+            elif values['fruitInput'] == "grapes":
+                price = 4.20
+        all = ("%.2f" % (price*float(values["quantity"])))
+        window['outPrice'].update(str(all)+' BGN')
+window.close()
