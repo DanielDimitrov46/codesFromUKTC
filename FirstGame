@@ -1,0 +1,36 @@
+'use strict'
+const Game = new Phaser.Game(1500, 1200, Phaser.AUTO, 'game-canvas', { preload, create, update })
+ 
+let mycar;
+let keys;
+let speed = 50;
+ 
+function preload() {
+    Game.load.bitmapFont('desyrel', 'assets/fonts/bitmapFonts/desyrel.png', 'assets/fonts/bitmapFonts/desyrel.xml');
+    Game.stage.backgroundColor = "#681526";
+    Game.load.image('mycar', "images/bmw.png");
+    keys = Game.input.keyboard.createCursorKeys();
+}
+ 
+function create() {
+    mycar = Game.add.sprite(0, 0, 'mycar');
+    mycar.x = 1000;
+    mycar.y = 20;
+    mycar.height = 100;
+    mycar.width = 200;
+ 
+}
+ 
+function update() {
+    if (keys.right.isDown){
+        mycar.x += speed; 
+    }
+    else if (keys.left.isDown){
+        mycar.x -= speed;  
+    }
+    else if (keys.up.isDown){
+        mycar.y -= speed;  
+    }
+    else if (keys.down.isDown){
+        mycar.y += speed;  
+    }
